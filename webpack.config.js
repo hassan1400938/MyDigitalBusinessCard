@@ -24,11 +24,25 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/, 
-        exclude: /node_modules/, 
-        use: 'babel-loader', 
-      },
-    ],
+        /** Include all modules that pass test assertion. */
+        test: /\.(js|jsx)$/,
+        /** Exclude all modules matching any of these conditions. */
+        exclude: /node_modules/,
+        /** Loader to be used */
+        loader: 'babel-loader'
+    }, {
+        test: /\.css$/,
+        /** Each entry specifies a loader to be used. */
+        use: ['style-loader', 'css-loader']
+    }, {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader',
+        options: {
+            /** Loading the image file to the specified directory. */
+            name: 'resource/image/[name].[ext]'
+        }
+    }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
